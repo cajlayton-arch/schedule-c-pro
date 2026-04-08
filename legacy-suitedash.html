@@ -1,0 +1,309 @@
+<style>
+#ltc-wrap *{box-sizing:border-box;margin:0;padding:0}
+#ltc-wrap{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f3ee;color:#1e293b;border-radius:12px;overflow:hidden;max-width:820px;margin:0 auto}
+#ltc-wrap .ltc-top{background:#1a1a2e;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:56px}
+#ltc-wrap .ltc-logo{display:flex;align-items:center;gap:10px}
+#ltc-wrap .ltc-mark{background:#c9a84c;color:#1a1a2e;font-weight:800;font-size:13px;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#ltc-wrap .ltc-name{font-size:14px;font-weight:700;color:#fff;line-height:1.1}
+#ltc-wrap .ltc-sub{font-size:10px;color:#c9a84c;letter-spacing:.08em;text-transform:uppercase}
+#ltc-wrap .ltc-badge{font-size:11px;color:#475569;text-transform:uppercase;letter-spacing:.05em}
+#ltc-wrap .ltc-api{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 1.25rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#ltc-wrap .ltc-api label{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+#ltc-wrap .ltc-api input{flex:1;min-width:180px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:7px;font-size:12px;font-family:monospace;color:#1e293b;background:#f8fafc;outline:none}
+#ltc-wrap .ltc-api input:focus{border-color:#1a1a2e;background:#fff}
+#ltc-wrap .api-ok{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:600;white-space:nowrap;background:#d1fae5;color:#065f46;display:none}
+#ltc-wrap .api-no{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:600;white-space:nowrap;background:#fef3c7;color:#92400e}
+#ltc-wrap .ltc-nav{background:#1a1a2e;display:flex;padding:0 1.25rem;gap:0;border-bottom:2px solid #0f0f1e}
+#ltc-wrap .ltc-tab{padding:11px 16px;font-size:13px;font-weight:500;color:#64748b;cursor:pointer;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;background:transparent;transition:color .15s,border-color .15s;white-space:nowrap}
+#ltc-wrap .ltc-tab:hover{color:#cbd5e1}
+#ltc-wrap .ltc-tab.on{color:#c9a84c;border-bottom-color:#c9a84c}
+#ltc-wrap .ltc-page{display:none;padding:1.25rem}
+#ltc-wrap .ltc-page.on{display:block}
+#ltc-wrap .intro{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #c9a84c;border-radius:0 10px 10px 0;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:13px;color:#475569;line-height:1.7}
+#ltc-wrap .intro strong{color:#1e293b}
+#ltc-wrap .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
+#ltc-wrap .sc{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1rem}
+#ltc-wrap .sc .sn{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#94a3b8;margin-bottom:3px}
+#ltc-wrap .sc h4{font-size:14px;font-weight:600;color:#1e293b;margin-bottom:8px}
+#ltc-wrap .sc ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:4px}
+#ltc-wrap .sc li{font-size:12px;color:#475569;background:#f8fafc;padding:5px 8px;border-radius:6px;line-height:1.4}
+#ltc-wrap .sc .tip{margin-top:8px;font-size:11px;color:#94a3b8;border-left:2px solid #e2e8f0;padding-left:8px;line-height:1.4}
+#ltc-wrap .flagbox{background:#fff1f2;border:1px solid #fecdd3;border-radius:10px;padding:1rem;margin-bottom:1rem}
+#ltc-wrap .flagbox h4{font-size:13px;font-weight:600;color:#be123c;margin-bottom:8px}
+#ltc-wrap .fpills{display:flex;flex-wrap:wrap;gap:6px}
+#ltc-wrap .fp{font-size:11px;padding:3px 9px;border-radius:20px;background:#fff;color:#9f1239;border:1px solid #fecdd3}
+#ltc-wrap .docbox{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:1rem;margin-bottom:1.25rem}
+#ltc-wrap .docbox h4{font-size:13px;font-weight:600;color:#92400e;margin-bottom:6px}
+#ltc-wrap .docbox p{font-size:13px;color:#78350f;line-height:1.6}
+#ltc-wrap .card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.25rem;margin-bottom:1rem}
+#ltc-wrap .card-head{font-size:14px;font-weight:600;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;gap:8px;color:#1e293b}
+#ltc-wrap .nb{background:#1a1a2e;color:#c9a84c;font-size:11px;font-weight:700;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+#ltc-wrap label.fl{display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:4px}
+#ltc-wrap input[type=text],#ltc-wrap input[type=number],#ltc-wrap select,#ltc-wrap textarea{width:100%;padding:8px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:13px;color:#1e293b;background:#fff;outline:none;transition:border-color .15s;font-family:inherit}
+#ltc-wrap input[type=text]:focus,#ltc-wrap input[type=number]:focus,#ltc-wrap select:focus,#ltc-wrap textarea:focus{border-color:#1a1a2e}
+#ltc-wrap textarea{resize:vertical;min-height:60px}
+#ltc-wrap .fr{margin-bottom:12px}
+#ltc-wrap .fr:last-child{margin-bottom:0}
+#ltc-wrap .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#ltc-wrap .calcbox{background:#f8fafc;border-radius:8px;padding:1rem;margin-top:10px}
+#ltc-wrap .clbl{font-size:10px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+#ltc-wrap .cform{font-family:monospace;font-size:12px;color:#64748b;margin-bottom:4px}
+#ltc-wrap .cresult{font-family:monospace;font-size:22px;font-weight:700;color:#1a1a2e}
+#ltc-wrap .expgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+#ltc-wrap .ei{display:flex;align-items:center;gap:6px;background:#f8fafc;border-radius:8px;padding:7px 8px;border:1px solid #e2e8f0}
+#ltc-wrap .ei input[type=checkbox]{width:14px;height:14px;flex-shrink:0;accent-color:#1a1a2e}
+#ltc-wrap .ei .en{font-size:12px;color:#475569;flex:1}
+#ltc-wrap .ei input[type=number]{width:72px;padding:3px 6px;font-size:12px;font-family:monospace;text-align:right}
+#ltc-wrap .fchecks{display:flex;flex-direction:column;gap:6px}
+#ltc-wrap .frow{display:flex;align-items:flex-start;gap:8px;padding:8px 10px;background:#fff1f2;border-radius:8px;border:1px solid #fecdd3;cursor:pointer}
+#ltc-wrap .frow input[type=checkbox]{width:14px;height:14px;margin-top:2px;flex-shrink:0;accent-color:#e11d48}
+#ltc-wrap .frow label{font-size:12px;color:#9f1239;line-height:1.4;cursor:pointer}
+#ltc-wrap .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
+#ltc-wrap .po{display:flex;align-items:center;gap:7px;font-size:12px;color:#475569;cursor:pointer}
+#ltc-wrap .po input{width:14px;height:14px;accent-color:#1a1a2e}
+#ltc-wrap .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;border:1px solid #e2e8f0;background:transparent;color:#1e293b;font-family:inherit}
+#ltc-wrap .btn:hover{background:#f8fafc}
+#ltc-wrap .btn-gold{background:#c9a84c;color:#1a1a2e;border-color:#c9a84c}
+#ltc-wrap .btn-gold:hover{background:#b8973b}
+#ltc-wrap .btn-dark{background:#1a1a2e;color:#fff;border-color:#1a1a2e}
+#ltc-wrap .btn-dark:hover{background:#0f0f1e}
+#ltc-wrap .brow{display:flex;gap:8px;margin-top:1.25rem;flex-wrap:wrap}
+#ltc-wrap .gbtn{width:100%;justify-content:center;padding:13px;font-size:14px}
+#ltc-wrap .spills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:1rem}
+#ltc-wrap .sp{font-size:12px;padding:3px 10px;border-radius:20px;border:1px solid #e2e8f0;background:#f8fafc;color:#475569}
+#ltc-wrap .sp strong{color:#1e293b}
+#ltc-wrap .sp.d{background:#fff1f2;color:#9f1239;border-color:#fecdd3}
+#ltc-wrap .sp.d strong{color:#be123c}
+#ltc-wrap .noteout{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.25rem;margin-top:1rem;display:none}
+#ltc-wrap .noteout.on{display:block}
+#ltc-wrap .notehead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9}
+#ltc-wrap .notehead h3{font-size:14px;font-weight:600;color:#1e293b}
+#ltc-wrap .notetext{font-size:13px;line-height:1.9;color:#475569;white-space:pre-wrap}
+#ltc-wrap .phint{font-size:11px;color:#94a3b8;text-align:center;margin-top:12px}
+#ltc-wrap .loading{display:none;align-items:center;justify-content:center;gap:10px;padding:1.5rem}
+#ltc-wrap .loading.on{display:flex}
+#ltc-wrap .spin{width:22px;height:22px;border:2px solid #e2e8f0;border-top-color:#1a1a2e;border-radius:50%;animation:ltcspin .8s linear infinite;flex-shrink:0}
+@keyframes ltcspin{to{transform:rotate(360deg)}}
+#ltc-wrap .loading p{font-size:13px;color:#64748b}
+#ltc-wrap .err{display:none;background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:9px 12px;font-size:13px;color:#be123c;margin-bottom:10px}
+#ltc-wrap .err.on{display:block}
+@media(max-width:540px){#ltc-wrap .sgrid,#ltc-wrap .g2,#ltc-wrap .expgrid,#ltc-wrap .pgrid{grid-template-columns:1fr}}
+</style>
+
+<div id="ltc-wrap">
+
+  <div class="ltc-top">
+    <div class="ltc-logo">
+      <div class="ltc-mark">LT</div>
+      <div>
+        <div class="ltc-name">Legacy Tax Company</div>
+        <div class="ltc-sub">Schedule C Pro Suite</div>
+      </div>
+    </div>
+    <div class="ltc-badge">Due Diligence Tool</div>
+  </div>
+
+  <div class="ltc-api">
+    <label for="ltcKey">Anthropic API Key</label>
+    <input type="password" id="ltcKey" placeholder="sk-ant-api03-..." oninput="ltcKeyCheck()">
+    <span class="api-no" id="ltcStat">Not set</span>
+    <span class="api-ok" id="ltcOk">Key set</span>
+  </div>
+
+  <div class="ltc-nav">
+    <button class="ltc-tab on" onclick="ltcTab('train',this)">Training</button>
+    <button class="ltc-tab" onclick="ltcTab('interview',this)">Client Interview</button>
+    <button class="ltc-tab" onclick="ltcTab('gen',this)">Note Generator</button>
+  </div>
+
+  <!-- TRAINING -->
+  <div class="ltc-page on" id="ltc-train">
+    <div class="intro">As a tax professional, you are <strong>required</strong> to ask questions, evaluate if the return makes sense, reconstruct income if needed, and document everything. This method walks you through each step — confidently.</div>
+    <div class="sgrid">
+      <div class="sc" style="border-left:3px solid #378ADD"><div class="sn">Step 1</div><h4>Business Identity</h4><ul><li>What type of work did you do?</li><li>How did you get paid? (cash, Zelle, 1099…)</li><li>How often did you work?</li><li>One client or many?</li></ul><div class="tip">Confirms it's a real business — your #1 due diligence obligation.</div></div>
+      <div class="sc" style="border-left:3px solid #EF9F27"><div class="sn">Step 2</div><h4>Income Reconstruction</h4><ul><li>How many clients per week?</li><li>What did you charge per job?</li><li>How many months did you work?</li><li>Any bank statements or logs?</li></ul><div class="tip">Multiply it out. Don't just accept "I made $X" — build the number together.</div></div>
+      <div class="sc" style="border-left:3px solid #1D9E75"><div class="sn">Step 3</div><h4>Expense Discovery</h4><ul><li>What did you buy for the business?</li><li>Did you drive for work? How often?</li><li>Any apps, licenses, or fees paid?</li><li>Did you use part of your home?</li></ul><div class="tip">Every business has expenses. If they say none — dig deeper.</div></div>
+      <div class="sc" style="border-left:3px solid #E24B4A"><div class="sn">Step 4</div><h4>Reasonableness Test</h4><ul><li>Can this income support their lifestyle?</li><li>Are the numbers suspiciously round?</li><li>Are expenses too low or too high?</li><li>Does this suspiciously maximize EITC?</li></ul><div class="tip">Pause and ask: does this story make sense as a whole?</div></div>
+    </div>
+    <div class="flagbox"><h4>Red flags to watch for</h4><div class="fpills"><span class="fp">Very round income numbers</span><span class="fp">Zero reported expenses</span><span class="fp">Cash-only business</span><span class="fp">Can't describe the work</span><span class="fp">Income maximizes EITC exactly</span><span class="fp">No receipts or records</span><span class="fp">Inconsistent story</span><span class="fp">Unrealistic income for work type</span></div></div>
+    <div class="docbox"><h4>Your documentation obligation</h4><p>You must document the questions asked, the answers received, and why you believe the return is accurate. Your due diligence note is your evidence — and your defense if the IRS ever questions the return.</p></div>
+    <div class="brow"><button class="btn btn-dark" onclick="ltcTab('interview',document.querySelectorAll('.ltc-tab')[1])">Start client interview →</button></div>
+  </div>
+
+  <!-- INTERVIEW -->
+  <div class="ltc-page" id="ltc-interview">
+    <div class="card">
+      <div class="card-head"><span class="nb">1</span> Business Identity</div>
+      <div class="fr"><label class="fl">Client name or initials</label><input type="text" id="lcName" placeholder="e.g. J. Williams"></div>
+      <div class="fr"><label class="fl">Type of business / work performed</label><input type="text" id="lcBiz" placeholder="e.g. home cleaning, rideshare, hair braiding"></div>
+      <div class="fr"><label class="fl">How did the client get paid?</label>
+        <div class="pgrid"><label class="po"><input type="checkbox" id="lpC"> Cash</label><label class="po"><input type="checkbox" id="lpZ"> Zelle / Venmo / CashApp</label><label class="po"><input type="checkbox" id="lp1"> 1099 / Direct deposit</label><label class="po"><input type="checkbox" id="lpO"> Other</label></div>
+      </div>
+      <div class="fr"><label class="fl">How long has this business been operating?</label>
+        <select id="lcAge"><option value="">Select...</option><option>Less than 1 year</option><option>1–2 years</option><option>3–5 years</option><option>More than 5 years</option></select>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="nb">2</span> Income Reconstruction</div>
+      <div class="g2" style="margin-bottom:10px">
+        <div class="fr" style="margin:0"><label class="fl">Avg. clients / jobs per week</label><input type="number" id="lcWk" min="0" placeholder="e.g. 8" oninput="ltcCalcInc()"></div>
+        <div class="fr" style="margin:0"><label class="fl">Avg. price per job ($)</label><input type="number" id="lcPr" min="0" placeholder="e.g. 100" oninput="ltcCalcInc()"></div>
+      </div>
+      <div class="g2">
+        <div class="fr" style="margin:0"><label class="fl">Weeks worked this year</label><input type="number" id="lcWks" min="0" max="52" placeholder="e.g. 40" oninput="ltcCalcInc()"></div>
+        <div class="fr" style="margin:0"><label class="fl">Supporting documents</label>
+          <select id="lcDocs"><option value="">None / reconstructed</option><option>Bank deposit statements</option><option>Client log / appointment book</option><option>Payment app history</option><option>1099 forms</option></select>
+        </div>
+      </div>
+      <div class="calcbox"><div class="clbl">Income Reconstruction</div><div class="cform" id="lcFormula">— clients × $— × — weeks =</div><div class="cresult" id="lcResult">$0</div></div>
+      <div class="fr" style="margin-top:10px"><label class="fl">Reported gross income on Schedule C ($)</label><input type="number" id="lcInc" min="0" placeholder="Actual reported amount"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="nb">3</span> Expense Discovery</div>
+      <p style="font-size:12px;color:#94a3b8;margin-bottom:8px">Check categories that apply and enter estimated amounts.</p>
+      <div class="expgrid">
+        <div class="ei"><input type="checkbox" id="leS" onchange="ltcCalcExp()"><span class="en">Supplies / materials</span><input type="number" id="laS" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+        <div class="ei"><input type="checkbox" id="leM" onchange="ltcCalcExp()"><span class="en">Mileage / transportation</span><input type="number" id="laM" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+        <div class="ei"><input type="checkbox" id="leF" onchange="ltcCalcExp()"><span class="en">App fees / licenses</span><input type="number" id="laF" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+        <div class="ei"><input type="checkbox" id="lePh" onchange="ltcCalcExp()"><span class="en">Phone (business %)</span><input type="number" id="laPh" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+        <div class="ei"><input type="checkbox" id="leH" onchange="ltcCalcExp()"><span class="en">Home office</span><input type="number" id="laH" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+        <div class="ei"><input type="checkbox" id="leL" onchange="ltcCalcExp()"><span class="en">Labor / helpers paid</span><input type="number" id="laL" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+        <div class="ei"><input type="checkbox" id="leE" onchange="ltcCalcExp()"><span class="en">Equipment / tools</span><input type="number" id="laE" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+        <div class="ei"><input type="checkbox" id="leO" onchange="ltcCalcExp()"><span class="en">Other expenses</span><input type="number" id="laO" placeholder="$0" min="0" oninput="ltcCalcExp()"></div>
+      </div>
+      <div class="calcbox" style="margin-top:8px"><div class="clbl">Total Estimated Expenses</div><div class="cresult" id="lcExpTotal">$0</div></div>
+      <div class="fr" style="margin-top:10px"><label class="fl">Additional expense notes (optional)</label><textarea id="lcExpNotes" placeholder="Any other context about expenses..."></textarea></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><span class="nb">4</span> Reasonableness Check</div>
+      <p style="font-size:12px;color:#94a3b8;margin-bottom:8px">Check any red flags present. More flags = more documentation needed.</p>
+      <div class="fchecks">
+        <div class="frow"><input type="checkbox" id="lfR"><label for="lfR">Income numbers appear suspiciously round (e.g. exactly $12,000)</label></div>
+        <div class="frow"><input type="checkbox" id="lfE"><label for="lfE">Client initially claimed zero or very few expenses</label></div>
+        <div class="frow"><input type="checkbox" id="lfC"><label for="lfC">All income was cash — no bank records or receipts</label></div>
+        <div class="frow"><input type="checkbox" id="lfT"><label for="lfT">Income level appears designed to maximize EITC</label></div>
+        <div class="frow"><input type="checkbox" id="lfS"><label for="lfS">Client's story was inconsistent or vague</label></div>
+      </div>
+      <div class="fr" style="margin-top:12px"><label class="fl">Overall assessment</label>
+        <select id="lcAssess"><option value="">Select...</option><option value="consistent">Consistent — income and expenses appear reasonable</option><option value="minor">Minor concerns noted — additional questions asked</option><option value="significant">Significant concerns — further documentation requested</option></select>
+      </div>
+      <div class="fr"><label class="fl">Additional notes / context</label><textarea id="lcNotes" placeholder="Anything else to include in the due diligence note..."></textarea></div>
+    </div>
+
+    <div class="brow">
+      <button class="btn btn-gold" onclick="ltcTab('gen',document.querySelectorAll('.ltc-tab')[2])">Generate due diligence note →</button>
+      <button class="btn" onclick="ltcClear()">Clear form</button>
+    </div>
+  </div>
+
+  <!-- GENERATOR -->
+  <div class="ltc-page" id="ltc-gen">
+    <div class="spills" id="ltcPills"></div>
+    <div class="card">
+      <div class="card-head">Review &amp; Generate</div>
+      <p style="font-size:12px;color:#94a3b8;margin-bottom:10px">Details are pulled from your interview. Add extra context below, then click Generate.</p>
+      <div class="fr"><label class="fl">Extra context (optional)</label><textarea id="lcExtra" placeholder="e.g. Client provided 3 months of bank statements. Seasonal slowdown in summer months."></textarea></div>
+    </div>
+    <div class="err" id="ltcErr"></div>
+    <button class="btn btn-gold gbtn" onclick="ltcGenerate()">Generate Due Diligence Note</button>
+    <div class="loading" id="ltcLoad"><div class="spin"></div><p>Drafting your note...</p></div>
+    <div class="noteout" id="ltcOut">
+      <div class="notehead"><h3>Due Diligence Note — Schedule C</h3><button class="btn" style="font-size:12px;padding:5px 12px" onclick="ltcCopy()">Copy Note</button></div>
+      <div class="notetext" id="ltcNoteText"></div>
+      <p class="phint">Prepared by Legacy Tax Company · Review before filing · Edit as needed</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function ltcTab(id,btn){
+  document.querySelectorAll('#ltc-wrap .ltc-page').forEach(function(p){p.classList.remove('on')});
+  document.querySelectorAll('#ltc-wrap .ltc-tab').forEach(function(t){t.classList.remove('on')});
+  document.getElementById('ltc-'+id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='gen') ltcBuildPills();
+}
+function ltcKeyCheck(){
+  var k=document.getElementById('ltcKey').value.trim();
+  var no=document.getElementById('ltcStat');
+  var ok=document.getElementById('ltcOk');
+  if(k.startsWith('sk-ant-')&&k.length>20){no.style.display='none';ok.style.display='inline-flex';}
+  else{no.style.display='inline-flex';ok.style.display='none';no.textContent=k.length>0?'Check key format':'Not set';}
+}
+function ltcCalcInc(){
+  var c=parseFloat(document.getElementById('lcWk').value)||0;
+  var p=parseFloat(document.getElementById('lcPr').value)||0;
+  var w=parseFloat(document.getElementById('lcWks').value)||0;
+  document.getElementById('lcFormula').textContent=(c||'—')+' clients × $'+(p||'—')+' × '+(w||'—')+' weeks =';
+  document.getElementById('lcResult').textContent='$'+(c*p*w).toLocaleString();
+}
+function ltcCalcExp(){
+  var ids=['S','M','F','Ph','H','L','E','O'];
+  var t=0;
+  ids.forEach(function(id){var cb=document.getElementById('le'+id);if(cb&&cb.checked)t+=parseFloat(document.getElementById('la'+id).value)||0;});
+  document.getElementById('lcExpTotal').textContent='$'+t.toLocaleString();
+}
+function ltcGetData(){
+  var pay=[];
+  if(document.getElementById('lpC').checked)pay.push('cash');
+  if(document.getElementById('lpZ').checked)pay.push('Zelle/Venmo/CashApp');
+  if(document.getElementById('lp1').checked)pay.push('1099/direct deposit');
+  if(document.getElementById('lpO').checked)pay.push('other methods');
+  var expDefs=[['S','supplies/materials'],['M','mileage/transportation'],['F','app fees and licenses'],['Ph','phone (business portion)'],['H','home office'],['L','labor/helpers'],['E','equipment and tools'],['O','other expenses']];
+  var exps=[];
+  expDefs.forEach(function(d){var cb=document.getElementById('le'+d[0]);var a=parseFloat(document.getElementById('la'+d[0]).value)||0;if(cb&&cb.checked)exps.push({l:d[1],a:a});});
+  var flags=[];
+  if(document.getElementById('lfR').checked)flags.push('income numbers appeared round');
+  if(document.getElementById('lfE').checked)flags.push('client initially reported no expenses');
+  if(document.getElementById('lfC').checked)flags.push('income was primarily cash with limited records');
+  if(document.getElementById('lfT').checked)flags.push('income level potentially maximizes EITC');
+  if(document.getElementById('lfS').checked)flags.push('client story required clarification');
+  return{biz:document.getElementById('lcBiz').value.trim(),pay:pay,age:document.getElementById('lcAge').value,wk:document.getElementById('lcWk').value,pr:document.getElementById('lcPr').value,wks:document.getElementById('lcWks').value,docs:document.getElementById('lcDocs').value,inc:document.getElementById('lcInc').value,exps:exps,expNotes:document.getElementById('lcExpNotes').value.trim(),flags:flags,assess:document.getElementById('lcAssess').value,notes:document.getElementById('lcNotes').value.trim(),extra:document.getElementById('lcExtra').value.trim()};
+}
+function ltcBuildPills(){
+  var d=ltcGetData();
+  var pills=document.getElementById('ltcPills');
+  var html='';
+  if(d.biz)html+='<span class="sp"><strong>Business:</strong> '+d.biz+'</span>';
+  if(d.inc)html+='<span class="sp"><strong>Income:</strong> $'+parseFloat(d.inc).toLocaleString()+'</span>';
+  if(d.exps.length>0){var t=d.exps.reduce(function(a,b){return a+b.a},0);html+='<span class="sp"><strong>Expenses:</strong> $'+t.toLocaleString()+'</span>';}
+  if(d.flags.length>0)html+='<span class="sp d"><strong>Flags:</strong> '+d.flags.length+'</span>';
+  pills.innerHTML=html;
+}
+function ltcGenerate(){
+  var apiKey=document.getElementById('ltcKey').value.trim();
+  var err=document.getElementById('ltcErr');
+  if(!apiKey||!apiKey.startsWith('sk-ant-')){err.textContent='Please enter your Anthropic API key at the top before generating.';err.classList.add('on');return;}
+  var d=ltcGetData();
+  var load=document.getElementById('ltcLoad');
+  var out=document.getElementById('ltcOut');
+  err.classList.remove('on');out.classList.remove('on');load.classList.add('on');
+  var expSum=d.exps.length>0?d.exps.map(function(e){return e.l+' ($'+e.a.toLocaleString()+')'}).join(', '):'no expenses initially reported (further questioning conducted)';
+  var flagSum=d.flags.length>0?'Red flags noted: '+d.flags.join('; ')+'.':'No significant red flags identified.';
+  var prompt='You are a professional tax document writer for Legacy Tax Company. Write a concise, professional Schedule C due diligence note for a tax preparer\'s client file.\n\nClient info:\n- Business type: '+(d.biz||'not specified')+'\n- Payment methods: '+(d.pay.join(', ')||'not specified')+'\n- Business operating for: '+(d.age||'unknown')+'\n- Clients per week: '+(d.wk||'not specified')+', price per job: $'+(d.pr||'not specified')+', weeks worked: '+(d.wks||'not specified')+'\n- Income supporting documents: '+(d.docs||'none specified')+'\n- Reported gross income: $'+(d.inc||'not specified')+'\n- Expenses reported: '+expSum+'\n- '+flagSum+'\n- Overall assessment: '+(d.assess||'not specified')+'\n- Additional notes: '+(d.notes||'none')+'\n- Extra context: '+(d.extra||'none')+'\n\nWrite a professional due diligence note (3-5 paragraphs) in third person, formal but plain language. No bullet points. No header. Cover: (1) business description and how income was determined, (2) expense categories and how amounts were established, (3) any red flags and how they were resolved, (4) overall conclusion on the reasonableness of the return.';
+  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1024,messages:[{role:'user',content:prompt}]})})
+  .then(function(r){if(!r.ok)return r.json().then(function(b){throw new Error((b.error&&b.error.message)||'Status '+r.status)});return r.json();})
+  .then(function(data){
+    document.getElementById('ltcNoteText').textContent=data.content.map(function(c){return c.text||''}).join('');
+    load.classList.remove('on');out.classList.add('on');
+  })
+  .catch(function(e){load.classList.remove('on');err.textContent='Could not generate note: '+e.message;err.classList.add('on');});
+}
+function ltcCopy(){
+  var text=document.getElementById('ltcNoteText').textContent;
+  navigator.clipboard.writeText(text).then(function(){
+    var b=document.querySelector('#ltc-wrap .notehead .btn');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy Note'},2000);
+  });
+}
+function ltcClear(){
+  if(!confirm('Clear all interview data?'))return;
+  document.querySelectorAll('#ltc-interview input[type=text],#ltc-interview input[type=number],#ltc-interview textarea').forEach(function(el){el.value=''});
+  document.querySelectorAll('#ltc-interview select').forEach(function(el){el.selectedIndex=0});
+  document.querySelectorAll('#ltc-interview input[type=checkbox]').forEach(function(cb){cb.checked=false});
+  ltcCalcInc();ltcCalcExp();
+}
+</script>
