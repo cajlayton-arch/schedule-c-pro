@@ -7,12 +7,6 @@
 #ltc-wrap .ltc-name{font-size:14px;font-weight:700;color:#fff;line-height:1.1}
 #ltc-wrap .ltc-sub{font-size:10px;color:#c9a84c;letter-spacing:.08em;text-transform:uppercase}
 #ltc-wrap .ltc-badge{font-size:11px;color:#475569;text-transform:uppercase;letter-spacing:.05em}
-#ltc-wrap .ltc-api{background:#fff;border-bottom:1px solid #e2e8f0;padding:10px 1.25rem;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-#ltc-wrap .ltc-api label{font-size:12px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
-#ltc-wrap .ltc-api input{flex:1;min-width:180px;padding:7px 12px;border:1px solid #e2e8f0;border-radius:7px;font-size:12px;font-family:monospace;color:#1e293b;background:#f8fafc;outline:none}
-#ltc-wrap .ltc-api input:focus{border-color:#1a1a2e;background:#fff}
-#ltc-wrap .api-ok{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:600;white-space:nowrap;background:#d1fae5;color:#065f46;display:none}
-#ltc-wrap .api-no{font-size:11px;padding:4px 10px;border-radius:20px;font-weight:600;white-space:nowrap;background:#fef3c7;color:#92400e}
 #ltc-wrap .ltc-nav{background:#1a1a2e;display:flex;padding:0 1.25rem;gap:0;border-bottom:2px solid #0f0f1e}
 #ltc-wrap .ltc-tab{padding:11px 16px;font-size:13px;font-weight:500;color:#64748b;cursor:pointer;border:none;border-bottom:2px solid transparent;margin-bottom:-2px;background:transparent;transition:color .15s,border-color .15s;white-space:nowrap}
 #ltc-wrap .ltc-tab:hover{color:#cbd5e1}
@@ -80,13 +74,9 @@
 #ltc-wrap .notehead h3{font-size:14px;font-weight:600;color:#1e293b}
 #ltc-wrap .notetext{font-size:13px;line-height:1.9;color:#475569;white-space:pre-wrap}
 #ltc-wrap .phint{font-size:11px;color:#94a3b8;text-align:center;margin-top:12px}
-#ltc-wrap .loading{display:none;align-items:center;justify-content:center;gap:10px;padding:1.5rem}
-#ltc-wrap .loading.on{display:flex}
-#ltc-wrap .spin{width:22px;height:22px;border:2px solid #e2e8f0;border-top-color:#1a1a2e;border-radius:50%;animation:ltcspin .8s linear infinite;flex-shrink:0}
-@keyframes ltcspin{to{transform:rotate(360deg)}}
-#ltc-wrap .loading p{font-size:13px;color:#64748b}
 #ltc-wrap .err{display:none;background:#fff1f2;border:1px solid #fecdd3;border-radius:8px;padding:9px 12px;font-size:13px;color:#be123c;margin-bottom:10px}
 #ltc-wrap .err.on{display:block}
+#ltc-wrap .date-line{font-size:12px;color:#94a3b8;margin-bottom:1rem}
 @media(max-width:540px){#ltc-wrap .sgrid,#ltc-wrap .g2,#ltc-wrap .expgrid,#ltc-wrap .pgrid{grid-template-columns:1fr}}
 </style>
 
@@ -101,13 +91,6 @@
       </div>
     </div>
     <div class="ltc-badge">Due Diligence Tool</div>
-  </div>
-
-  <div class="ltc-api">
-    <label for="ltcKey">Anthropic API Key</label>
-    <input type="password" id="ltcKey" placeholder="sk-ant-api03-..." oninput="ltcKeyCheck()">
-    <span class="api-no" id="ltcStat">Not set</span>
-    <span class="api-ok" id="ltcOk">Key set</span>
   </div>
 
   <div class="ltc-nav">
@@ -204,14 +187,17 @@
     <div class="spills" id="ltcPills"></div>
     <div class="card">
       <div class="card-head">Review &amp; Generate</div>
-      <p style="font-size:12px;color:#94a3b8;margin-bottom:10px">Details are pulled from your interview. Add extra context below, then click Generate.</p>
-      <div class="fr"><label class="fl">Extra context (optional)</label><textarea id="lcExtra" placeholder="e.g. Client provided 3 months of bank statements. Seasonal slowdown in summer months."></textarea></div>
+      <p style="font-size:12px;color:#94a3b8;margin-bottom:10px">Review the summary above, then click Generate to produce your due diligence note instantly — no internet connection required.</p>
     </div>
     <div class="err" id="ltcErr"></div>
     <button class="btn btn-gold gbtn" onclick="ltcGenerate()">Generate Due Diligence Note</button>
-    <div class="loading" id="ltcLoad"><div class="spin"></div><p>Drafting your note...</p></div>
+
     <div class="noteout" id="ltcOut">
-      <div class="notehead"><h3>Due Diligence Note — Schedule C</h3><button class="btn" style="font-size:12px;padding:5px 12px" onclick="ltcCopy()">Copy Note</button></div>
+      <div class="notehead">
+        <h3>Due Diligence Note — Schedule C</h3>
+        <button class="btn" style="font-size:12px;padding:5px 12px" onclick="ltcCopy()">Copy Note</button>
+      </div>
+      <div class="date-line" id="ltcDateLine"></div>
       <div class="notetext" id="ltcNoteText"></div>
       <p class="phint">Prepared by Legacy Tax Company · Review before filing · Edit as needed</p>
     </div>
@@ -226,13 +212,6 @@ function ltcTab(id,btn){
   document.getElementById('ltc-'+id).classList.add('on');
   btn.classList.add('on');
   if(id==='gen') ltcBuildPills();
-}
-function ltcKeyCheck(){
-  var k=document.getElementById('ltcKey').value.trim();
-  var no=document.getElementById('ltcStat');
-  var ok=document.getElementById('ltcOk');
-  if(k.startsWith('sk-ant-')&&k.length>20){no.style.display='none';ok.style.display='inline-flex';}
-  else{no.style.display='inline-flex';ok.style.display='none';no.textContent=k.length>0?'Check key format':'Not set';}
 }
 function ltcCalcInc(){
   var c=parseFloat(document.getElementById('lcWk').value)||0;
@@ -253,7 +232,7 @@ function ltcGetData(){
   if(document.getElementById('lpZ').checked)pay.push('Zelle/Venmo/CashApp');
   if(document.getElementById('lp1').checked)pay.push('1099/direct deposit');
   if(document.getElementById('lpO').checked)pay.push('other methods');
-  var expDefs=[['S','supplies/materials'],['M','mileage/transportation'],['F','app fees and licenses'],['Ph','phone (business portion)'],['H','home office'],['L','labor/helpers'],['E','equipment and tools'],['O','other expenses']];
+  var expDefs=[['S','supplies and materials'],['M','mileage and transportation'],['F','app fees and licenses'],['Ph','phone (business portion)'],['H','home office'],['L','labor and helpers'],['E','equipment and tools'],['O','other expenses']];
   var exps=[];
   expDefs.forEach(function(d){var cb=document.getElementById('le'+d[0]);var a=parseFloat(document.getElementById('la'+d[0]).value)||0;if(cb&&cb.checked)exps.push({l:d[1],a:a});});
   var flags=[];
@@ -262,7 +241,17 @@ function ltcGetData(){
   if(document.getElementById('lfC').checked)flags.push('income was primarily cash with limited records');
   if(document.getElementById('lfT').checked)flags.push('income level potentially maximizes EITC');
   if(document.getElementById('lfS').checked)flags.push('client story required clarification');
-  return{biz:document.getElementById('lcBiz').value.trim(),pay:pay,age:document.getElementById('lcAge').value,wk:document.getElementById('lcWk').value,pr:document.getElementById('lcPr').value,wks:document.getElementById('lcWks').value,docs:document.getElementById('lcDocs').value,inc:document.getElementById('lcInc').value,exps:exps,expNotes:document.getElementById('lcExpNotes').value.trim(),flags:flags,assess:document.getElementById('lcAssess').value,notes:document.getElementById('lcNotes').value.trim(),extra:document.getElementById('lcExtra').value.trim()};
+  return{
+    name:document.getElementById('lcName').value.trim(),
+    biz:document.getElementById('lcBiz').value.trim(),
+    pay:pay,age:document.getElementById('lcAge').value,
+    wk:document.getElementById('lcWk').value,pr:document.getElementById('lcPr').value,
+    wks:document.getElementById('lcWks').value,docs:document.getElementById('lcDocs').value,
+    inc:document.getElementById('lcInc').value,exps:exps,
+    expNotes:document.getElementById('lcExpNotes').value.trim(),
+    flags:flags,assess:document.getElementById('lcAssess').value,
+    notes:document.getElementById('lcNotes').value.trim()
+  };
 }
 function ltcBuildPills(){
   var d=ltcGetData();
@@ -275,27 +264,66 @@ function ltcBuildPills(){
   pills.innerHTML=html;
 }
 function ltcGenerate(){
-  var apiKey=document.getElementById('ltcKey').value.trim();
-  var err=document.getElementById('ltcErr');
-  if(!apiKey||!apiKey.startsWith('sk-ant-')){err.textContent='Please enter your Anthropic API key at the top before generating.';err.classList.add('on');return;}
   var d=ltcGetData();
-  var load=document.getElementById('ltcLoad');
+  var err=document.getElementById('ltcErr');
   var out=document.getElementById('ltcOut');
-  err.classList.remove('on');out.classList.remove('on');load.classList.add('on');
-  var expSum=d.exps.length>0?d.exps.map(function(e){return e.l+' ($'+e.a.toLocaleString()+')'}).join(', '):'no expenses initially reported (further questioning conducted)';
-  var flagSum=d.flags.length>0?'Red flags noted: '+d.flags.join('; ')+'.':'No significant red flags identified.';
-  var prompt='You are a professional tax document writer for Legacy Tax Company. Write a concise, professional Schedule C due diligence note for a tax preparer\'s client file.\n\nClient info:\n- Business type: '+(d.biz||'not specified')+'\n- Payment methods: '+(d.pay.join(', ')||'not specified')+'\n- Business operating for: '+(d.age||'unknown')+'\n- Clients per week: '+(d.wk||'not specified')+', price per job: $'+(d.pr||'not specified')+', weeks worked: '+(d.wks||'not specified')+'\n- Income supporting documents: '+(d.docs||'none specified')+'\n- Reported gross income: $'+(d.inc||'not specified')+'\n- Expenses reported: '+expSum+'\n- '+flagSum+'\n- Overall assessment: '+(d.assess||'not specified')+'\n- Additional notes: '+(d.notes||'none')+'\n- Extra context: '+(d.extra||'none')+'\n\nWrite a professional due diligence note (3-5 paragraphs) in third person, formal but plain language. No bullet points. No header. Cover: (1) business description and how income was determined, (2) expense categories and how amounts were established, (3) any red flags and how they were resolved, (4) overall conclusion on the reasonableness of the return.';
-  fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':apiKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1024,messages:[{role:'user',content:prompt}]})})
-  .then(function(r){if(!r.ok)return r.json().then(function(b){throw new Error((b.error&&b.error.message)||'Status '+r.status)});return r.json();})
-  .then(function(data){
-    document.getElementById('ltcNoteText').textContent=data.content.map(function(c){return c.text||''}).join('');
-    load.classList.remove('on');out.classList.add('on');
-  })
-  .catch(function(e){load.classList.remove('on');err.textContent='Could not generate note: '+e.message;err.classList.add('on');});
+  err.classList.remove('on');
+  if(!d.biz){err.textContent='Please enter the business type in the Client Interview tab before generating.';err.classList.add('on');return;}
+
+  var today=new Date();
+  var dateStr=today.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('ltcDateLine').textContent='Prepared: '+dateStr+' | Legacy Tax Company';
+
+  var clientRef=d.name?'The taxpayer, '+d.name+',':'The taxpayer';
+  var payStr=d.pay.length>0?d.pay.join(' and '):'various methods';
+  var ageStr=d.age?'The business has been operating for '+d.age.toLowerCase()+'.':'';
+
+  var incomeMethod='';
+  if(d.wk&&d.pr&&d.wks){
+    var calcInc=(parseFloat(d.wk)*parseFloat(d.pr)*parseFloat(d.wks));
+    incomeMethod='Income was reconstructed based on an average of '+d.wk+' clients per week at $'+parseFloat(d.pr).toLocaleString()+' per job over approximately '+d.wks+' weeks, yielding an estimated gross income of $'+calcInc.toLocaleString()+'.';
+  }
+  var docStr='';
+  if(d.docs&&d.docs!==''){docStr=' Supporting documentation reviewed included '+d.docs.toLowerCase()+'.';}
+  else{docStr=' No formal records were available; income was reconstructed through client interview and estimation.';}
+
+  var reportedStr='';
+  if(d.inc){reportedStr=' The gross income reported on Schedule C is $'+parseFloat(d.inc).toLocaleString()+'.';}
+
+  var p1=clientRef+' reported operating a '+d.biz+' business during the tax year. '+ageStr+' The client indicated that income was received via '+payStr+'. '+incomeMethod+docStr+reportedStr;
+
+  var p2='';
+  if(d.exps.length>0){
+    var expTotal=d.exps.reduce(function(a,b){return a+b.a},0);
+    var expList=d.exps.map(function(e){return e.l+' ($'+e.a.toLocaleString()+')'});
+    var expJoined=expList.length>1?expList.slice(0,-1).join(', ')+' and '+expList[expList.length-1]:expList[0];
+    p2='Ordinary and necessary business expenses were identified and documented in the following categories: '+expJoined+'. Total estimated expenses amount to $'+expTotal.toLocaleString()+'. '+( d.expNotes?d.expNotes:'Expense amounts were estimated based on the client interview, recurring purchase patterns, and industry norms.');
+  } else {
+    p2='The client was questioned regarding ordinary and necessary business expenses. Upon further inquiry, expense categories were reviewed. It is noted that every business operation typically incurs costs, and the client was prompted to identify all applicable expenses related to the conduct of the business.';
+  }
+
+  var p3='';
+  if(d.flags.length>0){
+    p3='During the interview, the following items required additional inquiry: '+d.flags.join('; ')+'. Each concern was addressed through follow-up questioning. The client provided clarifying responses, and the preparer documented the explanations provided. These matters were taken into consideration in the overall assessment of the return.';
+  }
+
+  var assessMap={
+    'consistent':'Based on the information gathered during the client interview and a review of available documentation, the income and expenses reported on Schedule C appear reasonable and consistent with the nature and scope of the business activity described.',
+    'minor':'Based on the information gathered, minor concerns were identified during the interview process. Additional questions were asked and satisfactory explanations were received. The income and expenses reported on Schedule C are considered reasonable given the circumstances documented.',
+    'significant':'Significant concerns were noted during the interview process, and additional documentation was requested from the client. The preparer has documented all inquiries and responses. The return has been prepared based on the best available information, and the client has been advised of their responsibility for the accuracy of the reported figures.'
+  };
+  var p4=assessMap[d.assess]||'Based on the information gathered during the client interview, the income and expenses reported on Schedule C have been reviewed for reasonableness and consistency with the nature of the business activity described.';
+  if(d.notes){p4+=' '+d.notes;}
+
+  var note=[p1,p2,p3,p4].filter(function(p){return p.trim()!==''}).join('\n\n');
+  document.getElementById('ltcNoteText').textContent=note;
+  out.classList.add('on');
+  out.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function ltcCopy(){
+  var date=document.getElementById('ltcDateLine').textContent;
   var text=document.getElementById('ltcNoteText').textContent;
-  navigator.clipboard.writeText(text).then(function(){
+  navigator.clipboard.writeText(date+'\n\n'+text).then(function(){
     var b=document.querySelector('#ltc-wrap .notehead .btn');b.textContent='Copied!';setTimeout(function(){b.textContent='Copy Note'},2000);
   });
 }
